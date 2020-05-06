@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 
@@ -48,9 +49,7 @@ app.get("/stats", function(req, res){
     res.sendFile(path.join(__dirname, "./public/stats.html"))
 });
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
-});
+
 
 app.post("/api/workouts", (req, res) =>{
     req.body.day = Date.now();
@@ -65,9 +64,25 @@ app.post("/api/workouts", (req, res) =>{
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.update({_id: req.params.id}, { $push: {exercises: req.body}, $inc: {totalDuration: req.body.duration}}, {new: true})
-}).then(dbExercise => {
+    db.Workout.update({
+        _id: req.params.id},
+        { $push: {exercises: req.body},
+         $inc: {totalDuration: req.body.duration
+        }
+    }, 
+    {
+        new: true
+    })
+
+.then(dbExercise => {
     res.json(dbExercise)
-}).catch (err => {
+})
+.catch (err => {
     res.json(err)
 }) 
+
+})
+
+app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}!`);
+  });
