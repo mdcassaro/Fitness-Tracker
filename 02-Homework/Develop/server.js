@@ -32,8 +32,6 @@ app.get("/exercise", function (req, res){
 })
 
 
-
-
 app.get("/api/workouts/range", function(req, res){
     db.Workout.find({})
     .then(dbWorkout => {
@@ -53,3 +51,15 @@ app.get("/stats", function(req, res){
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+
+app.post("/api/workouts", (req, res) =>{
+    req.body.day = Date.now();
+
+    db.Workout.create(req.body)
+    .then(dbWorkout => {
+        res.json(dbWorkout)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
