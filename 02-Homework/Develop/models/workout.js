@@ -3,18 +3,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
-  name: {
-    type: String,
-    unique: true
-  },
-  workouts: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Exercise"
-    }
-  ]
+  day: Date,
+  exercise: [],
+  totalDuration: 0
+
 });
 
-const Workout = mongoose.model("Plan", WorkoutSchema);
+const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;

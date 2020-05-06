@@ -24,6 +24,7 @@ const API = {
     return json;
   },
   async createWorkout(data = {}) {
+    data.day = Date.now();
     const res = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(data),
