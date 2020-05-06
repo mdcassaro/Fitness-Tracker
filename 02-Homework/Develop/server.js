@@ -63,3 +63,11 @@ app.post("/api/workouts", (req, res) =>{
         res.json(err)
     })
 })
+
+app.put("/api/workouts/:id", (req, res) => {
+    db.Workout.update({_id: req.params.id}, { $push: {exercises: req.body}, $inc: {totalDuration: req.body.duration}}, {new: true})
+}).then(dbExercise => {
+    res.json(dbExercise)
+}).catch (err => {
+    res.json(err)
+}) 
