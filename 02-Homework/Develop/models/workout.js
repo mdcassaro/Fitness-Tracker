@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 const WorkoutSchema = new Schema({
   day: Date,
   exercise: [],
-  totalDuration: 0
+  totalDuration: {
+    type: Number,
+    default: 0
+  }
 
 });
 
